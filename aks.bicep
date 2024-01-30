@@ -3,7 +3,7 @@
 param aksName string = 'aks-agc-eastus-001' // Change to your desired AKS cluster name
 param location string = 'eastus' // Set your desired location
 param nodeVmSize string = 'Standard_DS2_v2' // Set VM size for AKS nodes
-param networkPlugin string = 'azure' // Set network plugin ('azure' or 'kubenet')
+param networkPlugin string = 'azure' // Set network plugin ('azure')
 param dnsPrefix string = 'aks-agc-eastus-001' // DNS prefix for AKS
 param spokeResourceGroupName string = 'rg-agc-eastus-002' // Name of the network spoke resource group
 
