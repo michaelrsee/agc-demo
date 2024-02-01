@@ -1,21 +1,8 @@
 # initial setup
 
 # Deploy an AKS cluster with workload identity configured
-The alb-subnet has to have delegation assigned to it. 
 
-AKS_NAME='aks-agc-eastus-001'
-RESOURCE_GROUP='rg-agc-eastus-002'
-LOCATION='eastus' # The list of available regions may grow as we roll out to more preview regions
-VM_SIZE='Standard_D4ds_v5' # The size needs to be available in your location
-
-        az aks create --resource-group $RESOURCE_GROUP \
-            --name $AKS_NAME \
-            --location $LOCATION \
-            --node-vm-size $VM_SIZE \
-            --network-plugin azure \
-            --enable-oidc-issuer \
-            --enable-workload-identity \
-            --generate-ssh-key
+Deploy the AKS cluster via the aks.bicep file.
 
 
 # Register required resource providers on Azure.
