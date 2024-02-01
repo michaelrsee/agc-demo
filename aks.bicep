@@ -85,7 +85,7 @@ resource aksCluster 'Microsoft.ContainerService/managedClusters@2023-10-01' = {
       loadBalancerProfile: null
       serviceCidr: '172.28.0.0/16'
       dnsServiceIP: '172.28.0.10'
-      dockerBridgeCidr: '172.29.0.1/16'
+      dockerBridgeCidr: '172.17.0.1/16'
     }
     addonProfiles: {
       httpApplicationRouting: {
