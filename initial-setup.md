@@ -114,3 +114,21 @@ kubectl get gateway gateway-01 -n $ALB-infra -o yaml
 fqdn=$(kubectl get gateway gateway-01 -n $ALB-infra -o jsonpath='{.status.addresses[0].value}')
 
 echo $fqdn
+
+# Deploy calculator application from phoenix repo. 
+
+helm repo add phoenix 'https://raw.githubusercontent.com/denniszielke/phoenix/master/'
+helm repo update
+helm search repo phoenix 
+
+AZURE_CONTAINER_REGISTRY_NAME=phoenix
+KUBERNETES_NAMESPACE=calculator
+BUILD_BUILDNUMBER=latest
+AZURE_CONTAINER_REGISTRY_URL=denniszielke
+
+kubectl create namespace $KUBERNETES_NAMESPACE
+kubectl label namespace $KUBERNETES_NAMESPACE shared-gateway-access=true 
+
+helm upgrade calculator $AZURE_CONTAINER_REGISTRY_NAME/multicalculator --namespace $KUBERNETES_NAMESPACE --install --create-namespace --set replicaCount=2 --set image.frontendTag=$BUILD_BUILDNUMBER --set image.backendTag=$BUILD_BUILDNUMBER --set image.repository=$AZURE_CONTAINER_REGISTRY_URL --set gateway.enabled=true --set gateway.name=gateway-01 --set gateway.namespace=$ALB-infra --set slot=blue
+
+curl http://$fqdn/ping
